@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario de Laboratorio</title>
+</head>
+<body>
+<h2>Formulario de Laboratorio</h2>
+<form th:object="${laboratorio}" th:action="@{/laboratorios/nuevo}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>Nombre: <input type="text" th:field="*{nombre}" /></label><br/>
+    <label>Curso: <input type="text" th:field="*{curso}" /></label><br/>
+    <label>Docente: <input type="text" th:field="*{docente}" /></label><br/>
+
+    <!-- Asociar Alumnos -->
+    <label>Asociar Alumnos:
+        <select multiple="multiple" th:field="*{alumnos}">
+            <option th:each="alumno : ${alumnos}" th:value="${alumno}" th:text="${alumno.nombres + ' ' + alumno.apellidos}"></option>
+        </select>
+    </label><br/>
+
+    <input type="submit" value="Guardar" />
+</form>
+<br/>
+<a th:href="@{/laboratorios}">Volver a la Lista de Laboratorios</a>
+</body>
+</html>
+

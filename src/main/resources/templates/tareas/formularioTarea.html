@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario de Tarea</title>
+</head>
+<body>
+<h2>Formulario de Tarea</h2>
+<form th:object="${tarea}" th:action="@{/tareas/nueva}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>Descripción: <input type="text" th:field="*{descripcion}" /></label><br/>
+    <label>Esfuerzo: <input type="number" th:field="*{esfuerzo}" /></label><br/>
+
+    <!-- Asociar Alumno -->
+    <label>Asociar Alumno:
+        <select th:field="*{alumno}">
+            <option th:each="a : ${listaAlumnos}" th:value="${a}" th:text="${a.nombres + ' ' + a.apellidos}"></option> <!-- Cambié el nombre de la variable aquí también -->
+        </select>
+    </label><br/>
+
+
+    <input type="submit" value="Guardar" />
+</form>
+<br/>
+<a th:href="@{/tareas}">Volver a la Lista de Tareas</a>
+</body>
+</html>

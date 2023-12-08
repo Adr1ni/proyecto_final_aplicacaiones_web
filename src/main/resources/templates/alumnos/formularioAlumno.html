@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario de Alumno</title>
+</head>
+<body>
+<h2>Formulario de Alumno</h2>
+<form th:object="${alumno}" th:action="@{/alumnos/nuevo}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>Nombres: <input type="text" th:field="*{nombres}" /></label><br/>
+    <label>Apellidos: <input type="text" th:field="*{apellidos}" /></label><br/>
+    <label>Edad: <input type="number" th:field="*{edad}" /></label><br/>
+    <label>DNI: <input type="text" th:field="*{dni}" /></label><br/>
+    <label>Correo: <input type="text" th:field="*{correo}" /></label><br/>
+    <label>Carrera: <input type="text" th:field="*{carrera}" /></label><br/>
+    <label>Semestre: <input type="text" th:field="*{semestre}" /></label><br/>
+
+    <input type="submit" value="Guardar" />
+</form>
+<br/>
+<a th:href="@{/alumnos}">Volver a la Lista de Alumnos</a>
+</body>
+</html>

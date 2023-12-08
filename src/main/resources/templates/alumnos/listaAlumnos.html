@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Alumnos</title>
+</head>
+<body>
+<h2>Lista de Alumnos</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Edad</th>
+        <th>DNI</th>
+        <th>Correo</th>
+        <th>Carrera</th>
+        <th>Semestre</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="alumno : ${alumnos}">
+        <td th:text="${alumno.id}"></td>
+        <td th:text="${alumno.nombres}"></td>
+        <td th:text="${alumno.apellidos}"></td>
+        <td th:text="${alumno.edad}"></td>
+        <td th:text="${alumno.dni}"></td>
+        <td th:text="${alumno.correo}"></td>
+        <td th:text="${alumno.carrera}"></td>
+        <td th:text="${alumno.semestre}"></td>
+        <td>
+            <a th:href="@{/alumnos/editar/{id}(id=${alumno.id})}">Editar</a>
+
+            <a th:href="@{/alumnos/eliminar/{id}(id=${alumno.id})}">Eliminar</a>
+
+            <a th:href="@{/alumnos/{id}/tareas(id=${alumno.id})}">Ver Tareas</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<a th:href="@{/alumnos/nuevo}">Agregar Nuevo Alumno</a>
+</body>
+</html>

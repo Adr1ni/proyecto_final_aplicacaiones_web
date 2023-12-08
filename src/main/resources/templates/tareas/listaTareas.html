@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Tareas</title>
+</head>
+<body>
+<h2>Lista de Tareas</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Descripción</th>
+        <th>Esfuerzo</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="tarea : ${tareas}">
+        <td th:text="${tarea.id}"></td>
+        <td th:text="${tarea.descripcion}"></td>
+        <td th:text="${tarea.esfuerzo}"></td>
+        <td>
+            <a th:href="@{/tareas/editar/{id}(id=${tarea.id})}">Editar</a>
+            |
+            <a th:href="@{/tareas/eliminar/{id}(id=${tarea.id})}">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<a th:href="@{/tareas/nueva}">Agregar Nueva Tarea</a>
+</body>
+</html>
+

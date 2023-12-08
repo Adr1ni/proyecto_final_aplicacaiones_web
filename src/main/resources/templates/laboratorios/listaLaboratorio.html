@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Laboratorios</title>
+</head>
+<body>
+<h2>Lista de Laboratorios</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Curso</th>
+        <th>Docente</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="laboratorio : ${laboratorios}">
+        <td th:text="${laboratorio.id}"></td>
+        <td th:text="${laboratorio.nombre}"></td>
+        <td th:text="${laboratorio.curso}"></td>
+        <td th:text="${laboratorio.docente}"></td>
+        <td>
+            <a th:href="@{/laboratorios/editar/{id}(id=${laboratorio.id})}">Editar</a>
+            |
+            <a th:href="@{/laboratorios/eliminar/{id}(id=${laboratorio.id})}">Eliminar</a>
+            |
+            <a th:href="@{/laboratorios/{id}/alumnos}(id=${laboratorio.id})">Ver Alumnos</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<a th:href="@{/laboratorios/nuevo}">Agregar Nuevo Laboratorio</a>
+</body>
+</html>
+
