@@ -20,5 +20,9 @@ public class Tarea {
     @JoinColumn(name = "alumno_id")
     private Alumno alumno;
 
+    @ManyToOne
+    @JoinColumn(name = "laboratorio_id")
+    private Laboratorio laboratorio;
+
 }
 

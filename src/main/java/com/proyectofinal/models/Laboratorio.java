@@ -29,4 +29,8 @@ public class Laboratorio {
     )
     private List<Alumno> alumnos;
 
+
+    @OneToMany(mappedBy = "laboratorio")
+    private List<Tarea> tarea;
+
 }

@@ -10,16 +10,22 @@
     <label>Descripción: <input type="text" th:field="*{descripcion}" /></label><br/>
     <label>Esfuerzo: <input type="number" th:field="*{esfuerzo}" /></label><br/>
 
-    <!-- Asociar Alumno -->
     <label>Asociar Alumno:
-        <select th:field="*{alumno}">
-            <option th:each="a : ${listaAlumnos}" th:value="${a}" th:text="${a.nombres + ' ' + a.apellidos}"></option> <!-- Cambié el nombre de la variable aquí también -->
+        <select name="alumnoId">
+            <option th:each="a : ${alumnos}" th:value="${a.id}" th:text="${a.nombres + ' ' + a.apellidos}"></option>
         </select>
     </label><br/>
 
+    <!-- Agregado para seleccionar un laboratorio -->
+    <label>Asociar Laboratorio:
+        <select name="laboratorioId">
+            <option th:each="lab : ${laboratorios}" th:value="${lab.id}" th:text="${lab.nombre}"></option>
+        </select>
+    </label><br/>
 
     <input type="submit" value="Guardar" />
 </form>
+
 <br/>
 <a th:href="@{/tareas}">Volver a la Lista de Tareas</a>
 </body>

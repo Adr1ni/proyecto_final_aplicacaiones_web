@@ -2,14 +2,18 @@ package com.proyectofinal.services;
 
 import com.proyectofinal.interfaces.IAlumno;
 import com.proyectofinal.interfaces.ILaboratorio;
+import com.proyectofinal.interfaces.ITarea;
 import com.proyectofinal.models.Alumno;
 import com.proyectofinal.models.Laboratorio;
+import com.proyectofinal.models.Tarea;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 
 @Service
 public class LaboratorioService {
@@ -18,9 +22,12 @@ public class LaboratorioService {
 
     private final IAlumno alumnoRepository;
 
-    public LaboratorioService(ILaboratorio laboratorioRepository, IAlumno alumnoRepository) {
+    private final ITarea tareaRepository;
+
+    public LaboratorioService(ILaboratorio laboratorioRepository, IAlumno alumnoRepository, ITarea tareaRepository) {
         this.laboratorioRepository = laboratorioRepository;
         this.alumnoRepository = alumnoRepository;
+        this.tareaRepository = tareaRepository;
     }
 
     public List<Laboratorio> getAllLaboratorios() {
@@ -43,23 +50,26 @@ public class LaboratorioService {
         return alumnoRepository.findAlumnoByLaboratorioId(laboratorioId);
     }
 
-    public void addAlummnosdToLaboratorio(Long alumnoId, Set<Long> alumnosIds) {
-        Laboratorio laboratorio = laboratorioRepository.findById(alumnoId).orElse(null);
+    public List<Tarea> getTareasByLaboratorio(Long id){
+        return tareaRepository.findAllByLaboratorio_Id(id);
+    }
+
+    @Transactional
+    public void addAlummnosdToLaboratorio(Long laboratorioId, List<Long> alumnosIds) {
+        Laboratorio laboratorio = laboratorioRepository.findById(laboratorioId).orElse(null);
 
         if (laboratorio != null) {
-            List<Alumno> alumnos = new ArrayList<>(alumnoRepository.findAllById(alumnosIds));
-            laboratorio.getAlumnos().addAll(alumnos);
+            List<Alumno> alumnos = alumnoRepository.findAllById(alumnosIds);
 
-            for (Alumno alumno : alumnos) {
-                laboratorio.getAlumnos().add(alumno);
-                laboratorioRepository.save(laboratorio);
-            }
+            // Agrega los alumnos al laboratorio
+            laboratorio.setAlumnos(alumnos);
 
             laboratorioRepository.save(laboratorio);
         }
     }
 
-    public void editAlumnosDeLaboratorio(Long laboratorioId, Set<Long> nuevosAlumnoIds) {
+    @Transactional
+    public void editAlumnosDeLaboratorio(Long laboratorioId, List<Long> nuevosAlumnoIds) {
         Laboratorio laboratorio = laboratorioRepository.findById(laboratorioId).orElse(null);
 
         if (laboratorio != null) {

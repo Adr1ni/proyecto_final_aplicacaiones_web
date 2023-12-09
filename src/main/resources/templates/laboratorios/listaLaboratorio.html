@@ -23,10 +23,13 @@
         <td th:text="${laboratorio.docente}"></td>
         <td>
             <a th:href="@{/laboratorios/editar/{id}(id=${laboratorio.id})}">Editar</a>
-            |
+
             <a th:href="@{/laboratorios/eliminar/{id}(id=${laboratorio.id})}">Eliminar</a>
-            |
-            <a th:href="@{/laboratorios/{id}/alumnos}(id=${laboratorio.id})">Ver Alumnos</a>
+
+            <a th:href="@{/laboratorios/{id}/alumnos(id=${laboratorio.id})}">Ver Alumnos</a>
+
+            <a th:href="@{/laboratorios/{id}/tareas(id=${laboratorio.id})}">Ver Tareas</a>
+
         </td>
     </tr>
     </tbody>

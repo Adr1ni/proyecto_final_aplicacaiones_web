@@ -13,13 +13,14 @@
 
     <!-- Asociar Alumnos -->
     <label>Asociar Alumnos:
-        <select multiple="multiple" th:field="*{alumnos}">
-            <option th:each="alumno : ${alumnos}" th:value="${alumno}" th:text="${alumno.nombres + ' ' + alumno.apellidos}"></option>
+        <select multiple="multiple" name="alumnoIds">
+            <option th:each="a : ${alumnos}" th:value="${a.id}" th:text="${a.nombres + ' ' + a.apellidos}"></option>
         </select>
     </label><br/>
 
     <input type="submit" value="Guardar" />
 </form>
+
 <br/>
 <a th:href="@{/laboratorios}">Volver a la Lista de Laboratorios</a>
 </body>

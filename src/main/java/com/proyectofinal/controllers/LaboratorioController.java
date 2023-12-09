@@ -2,6 +2,7 @@ package com.proyectofinal.controllers;
 
 import com.proyectofinal.models.Alumno;
 import com.proyectofinal.models.Laboratorio;
+import com.proyectofinal.models.Tarea;
 import com.proyectofinal.services.AlumnoService;
 import com.proyectofinal.services.LaboratorioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +35,17 @@ public class LaboratorioController {
     @GetMapping("/nuevo")
     public String mostrarFormularioNuevo(Model model) {
         Laboratorio laboratorio = new Laboratorio();
+        List<Alumno> alumnos = alumnoService.getAllAlumnos();
         model.addAttribute("laboratorio", laboratorio);
+        model.addAttribute("alumnos", alumnos);
         return "laboratorios/formularioLaboratorio";
     }
 
 
     @PostMapping("/nuevo")
-    public String guardarLaboratorio(@ModelAttribute("laboratorio") Laboratorio laboratorio) {
+    public String guardarLaboratorio(@ModelAttribute("laboratorio") Laboratorio laboratorio, @RequestParam("alumnoIds") List<Long> alumnoIds) {
         laboratorioService.saveLaboratorio(laboratorio);
+        laboratorioService.addAlummnosdToLaboratorio(laboratorio.getId(), alumnoIds);
         return "redirect:/laboratorios";
     }
 
@@ -57,8 +61,9 @@ public class LaboratorioController {
 
 
     @PostMapping("/editar/{id}")
-    public String actualizarLaboratorio(@PathVariable Long id, @ModelAttribute("laboratorio") Laboratorio laboratorio) {
+    public String actualizarLaboratorio(@PathVariable Long id, @ModelAttribute("laboratorio") Laboratorio laboratorio, @RequestParam("alumnoIds") List<Long> alumnoIds) {
         laboratorioService.saveLaboratorio(laboratorio);
+        laboratorioService.editAlumnosDeLaboratorio(laboratorio.getId(), alumnoIds);
         return "redirect:/laboratorios";
     }
 
@@ -74,20 +79,14 @@ public class LaboratorioController {
     public String mostrarAlumnosDeLaboratorio(@PathVariable Long id, Model model) {
         List<Alumno> alumnos = laboratorioService.getAlumnosByLaboratorio(id);
         model.addAttribute("alumnos", alumnos);
-        return "laboratorios/listaAlumnos";
+        return "alumnos/listaAlumnos";
     }
 
-
-    @PostMapping("/{laboratorioId}/asociar-alumnos")
-    public String asociarAlumnos(@PathVariable Long laboratorioId, @RequestParam Set<Long> alumnoIds) {
-        laboratorioService.addAlummnosdToLaboratorio(laboratorioId, alumnoIds);
-        return "redirect:/laboratorios";
+    @GetMapping("/{id}/tareas")
+    public String mostrarTareasDeLaboratorio(@PathVariable Long id, Model model) {
+        List<Tarea> tareas = laboratorioService.getTareasByLaboratorio(id);
+        model.addAttribute("tareas", tareas);
+        return "tareas/listaTareas";
     }
 
-
-    @PostMapping("/{laboratorioId}/desasociar-alumnos")
-    public String desasociarAlumnos(@PathVariable Long laboratorioId, @RequestParam Set<Long> alumnoIds) {
-        laboratorioService.deleteAlumnosDeLaboratorio(laboratorioId, alumnoIds);
-        return "redirect:/laboratorios";
-    }
 }

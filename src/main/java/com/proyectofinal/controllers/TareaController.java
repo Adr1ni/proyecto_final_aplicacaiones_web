@@ -1,8 +1,10 @@
 package com.proyectofinal.controllers;
 
 import com.proyectofinal.models.Alumno;
+import com.proyectofinal.models.Laboratorio;
 import com.proyectofinal.models.Tarea;
 import com.proyectofinal.services.AlumnoService;
+import com.proyectofinal.services.LaboratorioService;
 import com.proyectofinal.services.TareaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ public class TareaController {
     @Autowired
     private AlumnoService alumnoService;
 
+    @Autowired
+    private LaboratorioService laboratorioService;
+
     // Listar todas las tareas
     @GetMapping
     public String listarTareas(Model model) {
@@ -32,27 +37,41 @@ public class TareaController {
     @GetMapping("/nueva")
     public String mostrarFormularioNuevo(Model model) {
         Tarea tarea = new Tarea();
-        List<Alumno> listaAlumnos = alumnoService.getAllAlumnos();
+        List<Alumno> alumnos = alumnoService.getAllAlumnos();
+        List<Laboratorio> laboratorios = laboratorioService.getAllLaboratorios();
         model.addAttribute("tarea", tarea);
-        model.addAttribute("listaAlumnos", listaAlumnos);
+        model.addAttribute("alumnos", alumnos);
+        model.addAttribute("laboratorios", laboratorios);
         return "tareas/formularioTarea";
     }
 
 
-    // Guardar una nueva tarea
     @PostMapping("/nueva")
-    public String guardarTarea(@ModelAttribute("tarea") Tarea tarea) {
+    public String guardarTarea(@ModelAttribute("tarea") Tarea tarea,
+                               @RequestParam("alumnoId") Long alumnoId,
+                               @RequestParam("laboratorioId") Long laboratorioId) {
+        // Obtener el alumno y el laboratorio utilizando los IDs
+        Alumno alumno = alumnoService.getAlumnoById(alumnoId);
+        Laboratorio laboratorio = laboratorioService.getLaboratorioById(laboratorioId);
+
+        tarea.setAlumno(alumno);
+        tarea.setLaboratorio(laboratorio);
+
         tareaService.saveTarea(tarea);
+
         return "redirect:/tareas";
     }
+
 
     // Mostrar formulario para editar una tarea
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
         Tarea tarea = tareaService.getTareaById(id);
         List<Alumno> alumnos = alumnoService.getAllAlumnos();
+        List<Laboratorio> laboratorios = laboratorioService.getAllLaboratorios();
         model.addAttribute("tarea", tarea);
         model.addAttribute("alumnos", alumnos);
+        model.addAttribute("laboratorios", laboratorios);
         return "tareas/formularioTarea";
     }
 
