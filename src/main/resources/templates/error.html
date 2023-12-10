@@ -1,18 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Error</title>
-    <!-- Agregar los enlaces a los archivos de Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error</title>
 </head>
+
 <body>
-<div class="container mt-5">
-    <div class="alert alert-danger" role="alert">
-        <h1 class="display-4">Error</h1>
-        <p class="lead">Se ha producido un error en la aplicación.</p>
+  <div id="error-page">
+    <div class="content">
+      <div class="header">
+        <img src="https://img.freepik.com/vector-gratis/ilustracion-concepto-estudiante-cansado_114360-14783.jpg?size=626&ext=jpg" alt="">
+      </div>
+      <h4>ERROR!!!</h4>
+      <p>Se ha producido un error en la aplicacion</p>
+
+      <div class="btns">
+        <a href="javascript:history.back()">Regresar</a>
+      </div>
     </div>
-</div>
+  </div>
 </body>
+
 </html>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    background: #fff;
+}
+#error-page{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#error-page .content{
+    max-width: 650px;
+    text-align: center;
+}
+#error-page .header img{
+    width: 380px;
+}
+#error-page h4{
+    position: relative;
+    color: #000;
+    font-size: 2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+#error-page h4::before{
+    position: absolute;
+    content: attr(data-text);
+    top: 0;
+    left: 0;
+    right: 0;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#error-page p{
+    font-size: 1.2em;
+    color: #0d0d0d;
+}
+#error-page .btns{
+    margin: 25px 0px;
+    display: inline-flex;
+}
+#error-page .btns a{
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 25px;
+    border: 2px solid #69a6ce;
+    color: #69a6ce;
+    border-radius: 25px;
+    font-weight: 500;
+    margin: 0px 10px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+#error-page .btns a:hover{
+    background: #69a6ce;
+    color: #fff;
+}
+</style>

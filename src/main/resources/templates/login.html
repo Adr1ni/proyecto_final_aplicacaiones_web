@@ -3,87 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Please Log In</title>
+    <title>Iniciar Sesion</title>
     <!-- Enlaces a archivos de Bootstrap desde CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Estilo personalizado para la página de inicio de sesión -->
-    <style>
-        .login-page {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .form {
-            max-width: 330px;
-            padding: 15px;
-            margin: auto;
-            text-align: center;
-        }
-
-        .form h1 {
-            margin-bottom: 10px;
-        }
-
-        .form h2 {
-            margin-bottom: 20px;
-        }
-
-        .form input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .form .button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .form p {
-            margin-top: 20px;
-        }
-
-        .error {
-            color: #721c24;
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            border-radius: 4px;
-            padding: 10px;
-            margin-bottom: 15px;
-        }
-    </style>
 </head>
 <body>
-<div class="login-page">
-    <div class="form">
-        <h1 class="display-4">Spring Boot Tutorial</h1>
-        <h2>Please Log In</h2>
-        <div class="error" th:if="${param.error}">
-            Invalid username and password.
-        </div>
-        <div class="error" th:if="${param.logout}">
-            You have been logged out.
-        </div>
-        <form class="login-form" th:action="@{/login}" method="post">
-            <div>
-                <input type="text" class="form-control" name="username" placeholder="Username"/>
+    <section class="side">
+        <img src="https://static.vecteezy.com/system/resources/previews/024/555/721/non_2x/cartoon-cute-student-icon-free-png.png" alt="">
+    </section>
+
+    <section class="main">
+        <div class="login-container">
+            <p class="title">Iniciar Sesion</p>
+            <div class="separator"></div>
+            <p class="welcome-message">Para acceder inicia Sesion</p>
+            <div class="error" th:if="${param.error}">
+                Usuario y Contraseña invalida
             </div>
-            <div>
-                <input type="password" class="form-control" name="password" placeholder="Password"/>
+            <div class="error" th:if="${param.logout}">
+                You have been logged out.
             </div>
-            <input class="btn btn-primary button" type="submit" value="Log in"/>
-        </form>
-        <p>Willy De Keyser</p>
-    </div>
-</div>
+            <form class="login-form" th:action="@{/login}" method="post">
+                <div>
+                    <input type="text" class="form-control" name="username" placeholder="Username"/>
+                </div>
+                <div>
+                    <input type="password" class="form-control" name="password" placeholder="Password"/>
+                </div>
+                <input class="btn btn-primary button" type="submit" value="Iniciar Sesion"/>
+                <br>
+                <p>¿No tienes cuenta?</p>
+                <a href="./register">Registrarse</a>
+
+            </form>
+        </div>
+    </section>
+    
 </body>
 </html>
+</html>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Montserrat', sans-serif;
+        color: #303433;
+    }
+    
+    body {
+        min-height: 100vh;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    section.side {
+        background: url("https://github.com/mariofornaroli/y-responsive-login-landing/blob/main/images/bk.png?raw=true") no-repeat;
+        background-size: 100% 102%;
+    }
+    
+    .side img {
+        width: 50%;
+        max-width: 50%;
+    }
+    
+    .login-container {
+        max-width: 450px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .title {
+        text-transform: uppercase;
+        font-size: 3em;
+        font-weight: bold;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+    
+    .separator {
+        width: 150px;
+        height: 4px;
+        background-color: #843bc7;
+        margin: 24px;
+    }
+    
+    .error {
+                color: #721c24;
+                background-color: #f8d7da;
+                border: 1px solid #f5c6cb;
+                border-radius: 4px;
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+    
+    .welcome-message {
+        text-align: center;
+        font-size: 1.1em;
+        line-height: 28px;
+        margin-bottom: 30px;
+        color: #696969;
+    }
+    
+    .login-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .form-control {
+        width: 100%;
+        position: relative;
+        margin-bottom: 24px;
+    }
+    
+    /* ----  Responsiveness   ----  */
+    @media (max-width: 780px) {
+    
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .side {
+            display: none;
+        }
+    }
+</style>
