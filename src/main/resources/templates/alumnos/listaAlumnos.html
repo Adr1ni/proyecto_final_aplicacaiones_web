@@ -8,7 +8,21 @@
 </head>
 
 <body>
+
+
+
     <main class="table" id="customers_table">
+        <section class="table__header">
+            <h1>Lista Laboratorios</h1> <br> <a th:href="@{/laboratorios/nuevo}">Agregar Nuevo Laboratorio</a>
+            <div class="list-group">
+                <a href="/tareas" class="list-group-item list-group-item-action">Listar Tareas</a>
+                <a href="/laboratorios" class="list-group-item list-group-item-action">Listar Laboratorios</a>
+                <a href="/alumnos" class="list-group-item list-group-item-action">Listar Alumnos</a>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Cerrar Sesión">
+                </form>
+            </div>
+        </section>
         <section class="table__header">
             <h1>Alumnos</h1><a th:href="@{/alumnos/nuevo}">Agregar Nuevo Alumno</a>
         </section>
@@ -75,6 +89,65 @@ body {
     justify-content: center;
     align-items: center;
 }
+    /header/
+    header{
+        z-index: 999;
+        position: fixed;
+        width: 100%;
+        height: calc(5rem + 1rem);
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        transition: 0.5s ease;
+        transition-property: height, background;
+    }
+
+    header.sticky{
+        height: calc(2.5rem + 1rem);
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    header .nav-bar{
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 200px;
+        transition: 0.3s ease;
+    }
+
+    .nav-close-btn, .nav-menu-btn{
+        display: none;
+    }
+
+    .nav-bar .logo{
+        color: var(--white-color);
+        font-size: 1.8em;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        text-shadow: var(--text-shadow);
+    }
+
+    .navigation .nav-items a{
+        color: var(--white-color);
+        font-size: 1em;
+        text-decoration: none;
+        text-shadow: var(--text-shadow);
+    }
+
+    .navigation .nav-items a i{
+        display: none;
+    }
+
+    .navigation .nav-items a:not(:last-child){
+        margin-right: 45px;
+    }
 
 main.table {
     width: 82vw;

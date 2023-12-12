@@ -8,7 +8,19 @@
 </head>
 
 <body>
+
     <main class="table" id="customers_table">
+        <section class="table__header">
+            <h1>Lista Laboratorios</h1> <br> <a th:href="@{/laboratorios/nuevo}">Agregar Nuevo Laboratorio</a>
+            <div class="list-group">
+                <a href="/tareas" class="list-group-item list-group-item-action">Listar Tareas</a>
+                <a href="/laboratorios" class="list-group-item list-group-item-action">Listar Laboratorios</a>
+                <a href="/alumnos" class="list-group-item list-group-item-action">Listar Alumnos</a>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Cerrar Sesión">
+                </form>
+            </div>
+        </section>
         <section class="table__header">
             <h1>Lista Laboratorios</h1> <br> <a th:href="@{/laboratorios/nuevo}">Agregar Nuevo Laboratorio</a>
         </section>
