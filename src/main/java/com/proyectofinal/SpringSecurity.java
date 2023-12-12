@@ -28,10 +28,10 @@ public class SpringSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
                         (authz) -> authz
-                                .requestMatchers("/register/**", "ListarEmpleados").permitAll()
-                                .requestMatchers("/alumnos/**").hasRole("ADMIN")
-                                .requestMatchers("/tareas/**").hasRole("ADMIN")
+                                .requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/laboratorios/**").hasRole("ADMIN")
+                                .requestMatchers("/tareas/**").hasRole("ADMIN")
+                                .requestMatchers("/alumnos/**").hasRole("ADMIN")
                                 .requestMatchers("/login", "/error").permitAll())
                 .formLogin(authz -> authz
                         .loginPage("/login").permitAll())
